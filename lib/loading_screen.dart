@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
+import 'package:geolocator/geolocator.dart';
+
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
 
@@ -9,6 +11,21 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+
+  void getLocation() async {
+
+    // await Geolocator.checkPermission();
+    // await Geolocator.requestPermission();
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    print(position);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +55,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
             ),
             SizedBox(height: 54.0),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                getLocation();
+              },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0),
                 padding: EdgeInsets.all(20),
@@ -47,7 +66,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   color: Colors.blue.shade600,
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: btnText,
+                child: Text(
+                  'Get Weather',
+                  textAlign: TextAlign.center,
+                  style: btnTextStyle,
+                ),
               ),
             ),
           ],

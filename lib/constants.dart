@@ -9,11 +9,7 @@ const mainTitle = TextStyle(
 const smallPara = TextStyle(
   fontSize: 14.0,
   fontFamily: 'Nim Reg',
-  color: Colors.grey.shade400,
+  color: Color(0xFFBDBDBD),
 );
 
-const btnText = Text(
-  'Get Weather',
-  textAlign: TextAlign.center,
-  style: TextStyle(fontSize: 15.0, fontFamily: 'Nim Reg'),
-);
+const btnTextStyle = TextStyle(fontSize: 15.0, fontFamily: 'Nim Reg');
