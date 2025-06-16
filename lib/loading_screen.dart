@@ -3,6 +3,8 @@ import 'constants.dart';
 
 import 'package:geolocator/geolocator.dart';
 
+import 'location.dart';
+
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
 
@@ -13,18 +15,11 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
 
   void getLocation() async {
+    Location location = Location();
+    await location.getCurrentLocation();
 
-    // await Geolocator.checkPermission();
-    // await Geolocator.requestPermission();
-
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-    }
-
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-    print(position);
+    print(location.latitude);
+    print(location.longitude);
   }
   @override
   Widget build(BuildContext context) {
