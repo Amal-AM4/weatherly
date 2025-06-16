@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 import 'location.dart';
+import 'dart:convert';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -15,7 +16,6 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   void getLocation() async {
-
     Location location = await Location.getCurrentLocation();
     print(location.latitude);
     print(location.longitude);
@@ -29,7 +29,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
-      print('✅ Data: ${response.body}');
+      // print('✅ Data: ${response.body}');
+      var data = response.body;
+      print(data);
+
+      var longitude = jsonDecode(data)['coord']['lon'];
+      var weatherCondition = jsonDecode(data)['weather'][0]['main'];
+      print(weatherCondition);
     } else {
       print('❌ Failed with status: ${response.statusCode}');
     }
