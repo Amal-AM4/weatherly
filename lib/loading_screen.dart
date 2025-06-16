@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 
 import 'location.dart';
-import 'dart:convert';
+import 'networking.dart';
+
 
 const apiKey = '20a7a2abb54b0ee9ad26eb39e27b34ea';
 
@@ -20,40 +20,29 @@ class _LoadingScreenState extends State<LoadingScreen> {
   var latitude;
   var longitude;
 
-  void getLocation() async {
+  void getLocationData() async {
     Location location = await Location.getCurrentLocation();
     latitude = location.latitude!.toStringAsFixed(5);
     longitude = location.longitude!.toStringAsFixed(5);
 
-    print(latitude);
-    print(longitude);
+    String path = 'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey';
+    
+    NetworkBrain networkBrain = NetworkBrain(path: path);
 
-    getData();
+    var WeatherData = await networkBrain.getData();
+
+    print(WeatherData);
+
+    // String cityName = decodedData['name'];
+    // String weatherCondition = decodedData['weather'][0]['main'];
+    // double temprature = decodedData['main']['temp'];
+
+
+    
   }
 
-  void getData() async {
-    final url = Uri.parse(
-      'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey',
-    );
+  // https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey
 
-    http.Response response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      var data = response.body;
-
-      var decodedData = jsonDecode(data);
-
-      String cityName = decodedData['name'];
-      String weatherCondition = decodedData['weather'][0]['main'];
-      double temprature = decodedData['main']['temp'];
-
-      print(cityName);
-      print(weatherCondition);
-      print(temprature);
-    } else {
-      print('Failed with status: ${response.statusCode}');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +74,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             SizedBox(height: 54.0),
             GestureDetector(
               onTap: () {
-                getLocation();
+                getLocationData();
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0),
