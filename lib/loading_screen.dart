@@ -15,12 +15,13 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
 
   void getLocation() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-
+    
+    Location location = await Location.getCurrentLocation();
     print(location.latitude);
     print(location.longitude);
+
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

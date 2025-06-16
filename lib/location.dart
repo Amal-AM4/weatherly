@@ -1,11 +1,12 @@
 import 'package:geolocator/geolocator.dart';
 
 class Location {
-  late double latitude;
-  late double longitude;
+  double? latitude;
+  double? longitude;
 
-  Future<void> getCurrentLocation() async {
-    try {
+  Location({this.latitude, this.longitude});
+
+  static Future<Location> getCurrentLocation() async {
       LocationPermission permission = await Geolocator.checkPermission();
       
       if (permission == LocationPermission.denied) {
@@ -21,10 +22,10 @@ class Location {
         desiredAccuracy: LocationAccuracy.high,
       );
       
-      latitude = position.latitude;
-      longitude = position.longitude;
-    } catch (e) {
-      print('Error getting location: $e');
-    }
+      return Location(
+        latitude: position.latitude,
+        longitude: position.longitude,
+      );
+
   }
 }
