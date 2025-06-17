@@ -30,26 +30,33 @@ class _LoadingScreenState extends State<LoadingScreen> {
         'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey';
 
     NetworkBrain networkBrain = NetworkBrain(path: path);
-
     var weatherData = await networkBrain.getData();
 
-    String locationName = weatherData['name'];
-    double temperatureKelvin = weatherData['main']['temp'];
-    String description = weatherData['weather'][0]['description'];
-    int humidity = weatherData['main']['humidity'];
-    double windSpeed = weatherData['wind']['speed'];
+    if (!mounted) return; // ✅ SAFE check
 
-    // Convert Kelvin to Celsius (optional)
-    double temperatureCelsius = temperatureKelvin - 273.15;
+    if (weatherData != null) {
+      String locationName = weatherData['name'];
+      double temperatureKelvin = weatherData['main']['temp'];
+      double temperatureCelsius = temperatureKelvin - 273.15;
+      int humidity = weatherData['main']['humidity'];
+      double windSpeed = weatherData['wind']['speed'];
+      String description = weatherData['weather'][0]['description'];
 
-    print(weatherData);
-    
-    print('📍 Location: $locationName');
-    print('🌡️ Temperature: ${temperatureCelsius.toStringAsFixed(1)}°C');
-    print('🌤️ Description: $description');
-    print('💧 Humidity: $humidity%');
-    print('💨 Wind Speed: ${windSpeed.toStringAsFixed(1)} m/s');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultScreen(
+            locationName: locationName,
+            temperatureCelsius: temperatureCelsius,
+            humidity: humidity,
+            windSpeed: windSpeed,
+            description: description,
+          ),
+        ),
+      );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +92,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
                 print('tapped');
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ResultScreen(locationName: locationName, temperatureCelsius: temperatureCelsius, humidity: humidity, windSpeed: windSpeed, description: description)),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ResultScreen(locationName: locationName, temperatureCelsius: temperatureCelsius, humidity: humidity, windSpeed: windSpeed, description: description)),
+                // );
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0),

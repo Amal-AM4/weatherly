@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ResultScreen extends StatefulWidget {
-  // const ResultScreen({super.key});
+  final String? locationName;
+  final double? temperatureCelsius;
+  final String? description;
+  final int? humidity;
+  final double? windSpeed;
 
-  String? locationName;
-  double? temperatureCelsius;
-  String? description;
-  int? humidity;
-  double? windSpeed;
+  const ResultScreen({
+    super.key,
+    required this.locationName,
+    required this.temperatureCelsius,
+    required this.humidity,
+    required this.windSpeed,
+    required this.description,
+  });
 
-  ResultScreen({required this.locationName, required this.temperatureCelsius, required this.humidity, required this.windSpeed, required this.description});
+  
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  // properties and methods
-
-  var bgBodyColor = Color(0xff3e98d0);
+  var bgBodyColor = const Color(0xff3e98d0);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,11 @@ class _ResultScreenState extends State<ResultScreen> {
       backgroundColor: bgBodyColor,
       appBar: AppBar(
         title: Text(
-          'CityName',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          '${widget.locationName ?? "Unknown"}',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: bgBodyColor,
       ),
@@ -44,53 +51,48 @@ class _ResultScreenState extends State<ResultScreen> {
                 children: [Image.asset('assets/images/sun.png', height: 320)],
               ),
             ),
-            Expanded(
-              flex: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 24),
-                    child: Text(
-                      '52\u00B0',
-                      style: TextStyle(
-                        fontSize: 82,
-                        fontWeight: FontWeight.bold,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    '${widget.temperatureCelsius?.toStringAsFixed(0) ?? "--"}\u00B0',
+                    style: const TextStyle(
+                      fontSize: 82,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${widget.description ?? "Clear"}',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
                       ),
+                      textAlign: TextAlign.start,
                     ),
-                  ),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Sunny',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                        Text('H: 63\u00B0  | L: 51\u00B0'),
-                      ],
+                    Text(
+                      'Humidity: ${widget.humidity ?? "--"}%  |  Wind: ${widget.windSpeed?.toStringAsFixed(1) ?? "--"} m/s',
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   children: [
                     Expanded(
                       child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
+                          const Text(
                             'Suggestion',
                             style: TextStyle(
                               fontSize: 22,
@@ -98,12 +100,12 @@ class _ResultScreenState extends State<ResultScreen> {
                             ),
                           ),
                           Text(
-                            'Weather is good so put a good sun creame 🌞 on body in cityname',
+                            'Weather is good so put on sunscreen 🌞 while in ${widget.locationName ?? "your city"}',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontFamily: 'Nim Reg'),
+                            style: const TextStyle(fontFamily: 'Nim Reg'),
                             maxLines: 3,
                           ),
-                          SizedBox(height: 80),
+                          const SizedBox(height: 80),
                         ],
                       ),
                     ),
