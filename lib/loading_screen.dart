@@ -70,10 +70,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
                 print('tapped');
 
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ResultScreen()),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ResultScreen()),
+                );
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0),
