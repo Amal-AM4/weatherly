@@ -73,17 +73,34 @@ class _ResultScreenState extends State<ResultScreen> {
               ),
             ),
             Expanded(
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Text('Suggestion', style: TextStyle(fontSize: 22)),
-                      Text(
-                        'Weather is good so put a good sun creame 🌞 on body in cityname',
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Suggestion',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontFamily: 'Nim Bold',
+                            ),
+                          ),
+                          Text(
+                            'Weather is good so put a good sun creame 🌞 on body in cityname',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontFamily: 'Nim Reg'),
+                            maxLines: 3,
+                          ),
+                          SizedBox(height: 80),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

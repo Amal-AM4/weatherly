@@ -31,9 +31,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     NetworkBrain networkBrain = NetworkBrain(path: path);
 
-    var WeatherData = await networkBrain.getData();
+    var weatherData = await networkBrain.getData();
 
-    print(WeatherData);
+    print(weatherData);
   }
 
   @override
@@ -68,10 +68,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
               onTap: () {
                 getLocationData();
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ResultScreen()),
-                );
+                print('tapped');
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ResultScreen()),
+                // );
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0),
