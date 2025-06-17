@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class ResultScreen extends StatefulWidget {
   final String? locationName;
   final double? temperatureCelsius;
+  final String? mainData;
   final String? description;
   final int? humidity;
   final double? windSpeed;
 
   const ResultScreen({
     super.key,
+    required this.mainData,
     required this.locationName,
     required this.temperatureCelsius,
     required this.humidity,
@@ -16,14 +18,42 @@ class ResultScreen extends StatefulWidget {
     required this.description,
   });
 
-  
-
   @override
   State<ResultScreen> createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  var bgBodyColor = const Color(0xff3e98d0);
+  var bgBodyColor = Color(0xff3e98d0);
+
+  String imagePath = 'assets/images/sun-cloud.png';
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Set imagePath based on the mainData value
+    switch (widget.mainData) {
+      case 'Clouds':
+        imagePath = 'assets/images/sun-cloud.png';
+        bgBodyColor = Color(0xff3e98d0);
+        break;
+      case 'Rain':
+        imagePath = 'assets/images/rainny.png';
+        bgBodyColor = Color(0xff1b4d71);
+        break;
+      case 'Clear':
+        imagePath = 'assets/images/sun.png';
+        bgBodyColor = Color(0xff3e98d0);
+        break;
+      case 'Thunderstorm':
+        imagePath = 'assets/images/hevyrain.png';
+        bgBodyColor = Color(0xff3e98d0);
+        break;
+      default:
+        imagePath = 'assets/images/sun.png';
+        bgBodyColor = Color(0xff3e98d0); // fallback
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +78,7 @@ class _ResultScreenState extends State<ResultScreen> {
               flex: 2,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Image.asset('assets/images/sun.png', height: 320)],
+                children: [Image.asset(imagePath, height: 320)],
               ),
             ),
             Row(
@@ -69,7 +99,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${widget.description ?? "Clear"}',
+                      '${widget.mainData ?? "Clear"}',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w500,
@@ -92,8 +122,8 @@ class _ResultScreenState extends State<ResultScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Text(
-                            'Suggestion',
+                          Text(
+                            '${widget.description ?? "Clear"}',
                             style: TextStyle(
                               fontSize: 22,
                               fontFamily: 'Nim Bold',

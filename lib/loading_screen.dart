@@ -35,6 +35,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (!mounted) return; // ✅ SAFE check
 
     if (weatherData != null) {
+      String mainData = weatherData['weather'][0]['main'];
       String locationName = weatherData['name'];
       double temperatureKelvin = weatherData['main']['temp'];
       double temperatureCelsius = temperatureKelvin - 273.15;
@@ -46,6 +47,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => ResultScreen(
+            mainData: mainData,
             locationName: locationName,
             temperatureCelsius: temperatureCelsius,
             humidity: humidity,
