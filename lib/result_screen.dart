@@ -4,6 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class ResultScreen extends StatefulWidget {
   // const ResultScreen({super.key});
 
+  String? locationName;
+  double? temperatureCelsius;
+  String? description;
+  int? humidity;
+  double? windSpeed;
+
+  ResultScreen({required this.locationName, required this.temperatureCelsius, required this.humidity, required this.windSpeed, required this.description});
+
   @override
   State<ResultScreen> createState() => _ResultScreenState();
 }

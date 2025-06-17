@@ -33,7 +33,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     var weatherData = await networkBrain.getData();
 
+    String locationName = weatherData['name'];
+    double temperatureKelvin = weatherData['main']['temp'];
+    String description = weatherData['weather'][0]['description'];
+    int humidity = weatherData['main']['humidity'];
+    double windSpeed = weatherData['wind']['speed'];
+
+    // Convert Kelvin to Celsius (optional)
+    double temperatureCelsius = temperatureKelvin - 273.15;
+
     print(weatherData);
+    
+    print('📍 Location: $locationName');
+    print('🌡️ Temperature: ${temperatureCelsius.toStringAsFixed(1)}°C');
+    print('🌤️ Description: $description');
+    print('💧 Humidity: $humidity%');
+    print('💨 Wind Speed: ${windSpeed.toStringAsFixed(1)} m/s');
   }
 
   @override
@@ -72,7 +87,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ResultScreen()),
+                  MaterialPageRoute(builder: (context) => ResultScreen(locationName: locationName, temperatureCelsius: temperatureCelsius, humidity: humidity, windSpeed: windSpeed, description: description)),
                 );
               },
               child: Container(
