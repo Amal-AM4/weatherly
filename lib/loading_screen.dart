@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 
 import 'location.dart';
 import 'networking.dart';
