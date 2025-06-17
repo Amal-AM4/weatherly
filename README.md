@@ -1,7 +1,7 @@
 
 # WEATHERLY
 
-![Weatherly Demo Banner](./screenshots/weather-banner.png)
+![Weatherly Demo Banner](assets/screenshots/weatherly.png)
 
 **Weatherly** is a clean and interactive **Flutter weather app** that provides real-time weather updates using city-based search.  
 This application features a **minimal and modern UI**, and delivers essential data such as temperature, humidity, and wind speed in an intuitive format.
@@ -43,7 +43,7 @@ flutter doctor
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/weatherly.git
+git clone https://github.com/Amal-AM4/weatherly.git
 cd weatherly
 ```
 
