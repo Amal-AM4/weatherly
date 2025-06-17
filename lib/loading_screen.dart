@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'location.dart';
 import 'networking.dart';
 
+import 'result_screen.dart';
 
 const apiKey = '20a7a2abb54b0ee9ad26eb39e27b34ea';
 
@@ -25,24 +26,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
     latitude = location.latitude!.toStringAsFixed(5);
     longitude = location.longitude!.toStringAsFixed(5);
 
-    String path = 'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey';
-    
+    String path =
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey';
+
     NetworkBrain networkBrain = NetworkBrain(path: path);
 
     var WeatherData = await networkBrain.getData();
 
     print(WeatherData);
-
-    // String cityName = decodedData['name'];
-    // String weatherCondition = decodedData['weather'][0]['main'];
-    // double temprature = decodedData['main']['temp'];
-
-
-    
   }
-
-  // https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +67,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
             GestureDetector(
               onTap: () {
                 getLocationData();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ResultScreen()),
+                );
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0),
