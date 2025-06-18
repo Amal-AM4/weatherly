@@ -8,7 +8,7 @@ import 'networking.dart';
 
 import 'result_screen.dart';
 
-const apiKey = '20a7a2abb54b0ee9ad26eb39e27b34ea';
+const apiKey = '<secret key>';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
